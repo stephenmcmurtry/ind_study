@@ -3,6 +3,10 @@
   "title": "JSON Story",
   "description": "A description goes here.",
   "publish_date": "February 2016",
+  "tags": [
+    "fiction",
+    "mystery"
+  ],
   "slides": [
     {
       "slide_title": "The Story Begins",
@@ -11,20 +15,24 @@
       "bg_image": "example.jpeg",
       "text_color": "E62E2E",
       "text_font": "Arial",
+      "text_sixe": 12,
       "text_align": "center",
       "audio_file": "story.mp3",
+      "video_file": "story.mp4",
       "slide_length": 30
     },
     {
-      "slide_title": "The Story Continues",
+      "slide_title": "The Story Begins",
       "slide_text": "Our hero is three feet tall.<br>He works in a deli.",
       "bg_color": "00FF00",
       "bg_image": "example.jpeg",
       "text_color": "E62E2E",
       "text_font": "Arial",
+      "text_sixe": 12,
       "text_align": "center",
       "audio_file": "story.mp3",
-      "slide_length": 20
-    }
+      "video_file": "story.mp4",
+      "slide_length": 30
+    },
   ]
 }
