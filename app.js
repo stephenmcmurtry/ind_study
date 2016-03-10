@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var feed = require('./routes/feed');
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/feed', feed);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,6 +33,31 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+// mongodb functions
+
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+
+var url = 'mongodb://stephenmcmurtry:smudge1@ds023448.mlab.com:23448/micro_stories';
+
+MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server.");
+    db.close();
+});
+
+var getStoryList = function(db, callback) {
+    var cursor =db.collection('stories').find( );
+    cursor.each(function(err, doc) {
+        assert.equal(err, null);
+        if (doc != null) {
+            console.dir(doc);
+        } else {
+            callback();
+        }
+    });
+};
 
 // error handlers
 
