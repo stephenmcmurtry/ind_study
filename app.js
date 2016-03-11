@@ -11,6 +11,11 @@ var feed = require('./routes/feed');
 
 var app = express();
 
+// Socket.io stuff
+
+var server = app.listen(3001);
+var io = require('socket.io').listen(server);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -43,21 +48,40 @@ var url = 'mongodb://stephenmcmurtry:smudge1@ds023448.mlab.com:23448/micro_stori
 
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    console.log("Connected correctly to server.");
+    console.log("Connected correctly to database.");
     db.close();
 });
 
-var getStoryList = function(db, callback) {
-    var cursor =db.collection('stories').find( );
-    cursor.each(function(err, doc) {
-        assert.equal(err, null);
-        if (doc != null) {
-            console.dir(doc);
-        } else {
-            callback();
-        }
+
+io.on('connection', function (socket) {
+
+    // DB Methods
+
+    var getStories = function(db, data, callback) {
+        var cursor =db.collection('stories').find( );
+        cursor.each(function(err, doc) {
+            assert.equal(err, null);
+            if (doc != null) {
+                socket.emit('story', JSON.stringify(doc));
+                // console.log(doc);
+            } else {
+                callback();
+            }
+        });
+    };
+
+    // End DB Methods
+
+    socket.on('getStories', function(data) {
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null, err);
+            getStories(db, data, function() {
+                db.close();
+            });
+        });
+        // console.log(data);
     });
-};
+});
 
 // error handlers
 

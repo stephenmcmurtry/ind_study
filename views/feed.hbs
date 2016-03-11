@@ -1,5 +1,22 @@
+<script src="http://localhost:3001/socket.io/socket.io.js"> </script>
+<script>
+    // Turn on socket.io
+
+    var socket = io.connect('http://localhost:3001');
+
+    socket.emit('getStories');
+</script>
+
 <div class="container" style="padding-top: 50px">
     Welcome to the feed!
 
-    This is the title: {{title}}
+    <div id="storyList"></div>
+
+    <script>
+        socket.on('story', function(data) {
+            var story = JSON.parse(data);
+            $("#storyList").append(story.author);
+            console.log(story.author);
+        });
+    </script>
 </div>
