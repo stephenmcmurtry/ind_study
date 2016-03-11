@@ -7,16 +7,17 @@
     socket.emit('getStories');
 </script>
 
-<div class="container" style="padding-top: 50px">
-    Welcome to the feed!
+<div class="container" style="padding: 100px">
 
     <div id="storyList"></div>
 
     <script>
         socket.on('story', function(data) {
             var story = JSON.parse(data);
-            $("#storyList").append(story.author);
-            console.log(story.author);
+            $("#storyList").append("<h2>" + story.title + "</h2><br>By " + story.author + "<br><p>" + story.description + "</p><br>");
+            $.each(story.tags, function(index, value) {
+                $("#storyList").append('<a class="ui tag label">' + value + '</a>');
+            });
         });
     </script>
 </div>
