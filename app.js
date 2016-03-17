@@ -56,7 +56,7 @@ MongoClient.connect(url, function(err, db) {
 
 io.on('connection', function (socket) {
 
-    // DB Methods
+    // Story Feed methods
 
     var getStories = function(db, data, callback) {
         var cursor =db.collection('stories').find( );
@@ -70,8 +70,6 @@ io.on('connection', function (socket) {
             }
         });
     };
-
-    // End DB Methods
 
     socket.on('getStories', function(data) {
         MongoClient.connect(url, function(err, db) {

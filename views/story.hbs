@@ -1,6 +1,32 @@
+<script src="http://localhost:3001/socket.io/socket.io.js"> </script>
+<script>
+    // Turn on socket.io
+    var socket = io.connect('http://localhost:3001');
+
+    socket.emit('getStories');
+</script>
+
 <div class="container" style="padding: 100px">
 
-    ID is: {{id}}
-
+    <div class="ui raised very padded text container segment">
+        <div id="storyBox"></div>
+    </div>
 
 </div>
+
+<script>
+    socket.on('story', function(data) {
+        var story = JSON.parse(data);
+        if(story._id == "{{id}}") {
+
+            for (var x = 0; x < story.slides.length; x++) {
+                console.log(x);
+                $('#storyBox').append(story.slides[x].slide_text)
+                        .delay(story.slides[x].slide_length * 100)
+                        .queue(function() {
+                            $(this).html('')
+                });
+            }
+        }
+    });
+</script>
