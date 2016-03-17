@@ -14,7 +14,7 @@
     <script>
         socket.on('story', function(data) {
             var story = JSON.parse(data);
-            $("#storyList").append("<h2><a href='#'>" + story.title + "</a></h2><br>By " + story.author + "<br><p>" + story.description + "</p><br>");
+            $("#storyList").append("<h2><a href='/stories/" + story._id + "'>" + story.title + "</a></h2><br>By " + story.author + "<br><p>" + story.description + "</p><br>");
             $.each(story.tags, function(index, value) {
                 $("#storyList").append('<a class="ui tag label">' + value + '</a>');
             });

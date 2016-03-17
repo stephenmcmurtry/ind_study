@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET feed page. */
-router.get('/', function(req, res, next) {
-    res.render('feed');
+router.get('/:id', function(req, res){
+    res.render('story', {id: req.params.id});
 });
 
 module.exports = router;
