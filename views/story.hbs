@@ -7,7 +7,7 @@
     //ui raised very padded text container segment
 </script>
 
-<div class="container" style="padding: 100px">
+<div class="container" style="padding-top: 70px">
 
     <div class="ui raised very padded text container segment">
         <div id="storyBox" class="wrapper"><br></div>
@@ -28,6 +28,8 @@
         var myFunction = function(){
             clearInterval(interval);
             var currentSlide = storySlides[x];
+
+            // Text and Background formatting
             $storyDiv.css({'background-color': currentSlide.bg_color,
                 'font-size': currentSlide.text_size,
                 'font-family': currentSlide.text_font,
@@ -35,11 +37,10 @@
                 'text-align': currentSlide.text_align});
             $storyDiv.html(currentSlide.slide_text);
 
-            console.log("storySlides length is " + storySlides.length);
-            console.log(" x is " + x + " and slide_txt is " + storySlides[x].slide_text);
+            // Audio calling
+            $storyDiv.append("<audio src='/public/audio/'" + currentSlide.audio_file + "' autoplay></audio>");
 
             counter = storySlides[x].slide_length * 100;
-            console.log("Hit the else and counter is " + counter);
 
             x++;
             interval = setInterval(myFunction, counter);
