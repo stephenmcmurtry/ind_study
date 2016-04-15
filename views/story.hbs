@@ -38,7 +38,12 @@
             $storyDiv.html(currentSlide.slide_text);
 
             // Audio calling
-            $storyDiv.append("<audio src='/public/audio/'" + currentSlide.audio_file + "' autoplay></audio>");
+            $storyDiv.append("<audio src='" + currentSlide.audio_file + "' autoplay></audio>");
+
+            // Image calling
+            $storyDiv.css({'background-image': currentSlide.bg_image,
+                'background-size': '100%'});
+
 
             counter = storySlides[x].slide_length * 100;
 
