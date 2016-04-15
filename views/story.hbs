@@ -29,6 +29,11 @@
             clearInterval(interval);
             var currentSlide = storySlides[x];
 
+            // Out with the old
+            $storyDiv.empty();
+
+            $("#slideVideo").first().attr('src','');
+
             // Text and Background formatting
             $storyDiv.css({'background-color': currentSlide.bg_color,
                 'font-size': currentSlide.text_size,
@@ -38,11 +43,14 @@
             $storyDiv.html(currentSlide.slide_text);
 
             // Audio calling
-            $storyDiv.append("<audio src='" + currentSlide.audio_file + "' autoplay></audio>");
+            $storyDiv.append("<audio id='slideAudio' src='" + currentSlide.audio_file + "' autoplay></audio>");
 
             // Image calling
             $storyDiv.css({'background-image': currentSlide.bg_image,
                 'background-size': '100%'});
+
+            // Video calling
+            //$storyDiv.append("<video id='slideVideo' src='" + currentSlide.video_file + "' autoplay> style='display: block'</video>");
 
 
             counter = storySlides[x].slide_length * 100;
