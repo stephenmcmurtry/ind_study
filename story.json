@@ -11,10 +11,10 @@
     {
       "slide_title": "The Story Begins",
       "slide_text": "Our hero is three feet tall.<br>He works in a deli.",
-      "bg_color": "00FF00",
+      "bg_color": "yellow",
       "bg_image": "example.jpeg",
-      "text_color": "E62E2E",
-      "text_font": "Arial",
+      "text_color": "#E62E2E",
+      "text_font": "Times New Roman",
       "text_sixe": 12,
       "text_align": "center",
       "audio_file": "story.mp3",
@@ -23,16 +23,29 @@
     },
     {
       "slide_title": "The Story Begins",
-      "slide_text": "Our hero is three feet tall.<br>He works in a deli.",
-      "bg_color": "00FF00",
+      "slide_text": "Our hero is three feet tall.<br>He works in a car.",
+      "bg_color": "green",
       "bg_image": "example.jpeg",
-      "text_color": "E62E2E",
+      "text_color": "#E21E2E",
       "text_font": "Arial",
-      "text_sixe": 12,
+      "text_sixe": 15,
       "text_align": "center",
       "audio_file": "story.mp3",
       "video_file": "story.mp4",
-      "slide_length": 30
+      "slide_length": 40
+    },
+    {
+      "slide_title": "The Story Begins",
+      "slide_text": "Our hero is three feet tall.<br>He works in a dog.",
+      "bg_color": "orange",
+      "bg_image": "example.jpeg",
+      "text_color": "#E62E2E",
+      "text_font": "Arial",
+      "text_sixe": 20,
+      "text_align": "left",
+      "audio_file": "story.mp3",
+      "video_file": "story.mp4",
+      "slide_length": 50
     }
   ]
 }

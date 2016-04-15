@@ -78,7 +78,25 @@ io.on('connection', function (socket) {
                 db.close();
             });
         });
-        // console.log(data);
+    });
+
+    var getStory = function(db, data, callback) {
+        var obj_id = require('mongodb').ObjectID(data);
+        db.collection('stories').findOne({_id: obj_id}, function(err, doc) {
+            if (doc){
+                socket.emit('story', JSON.stringify(doc));
+            } else {
+                console.log('no data for this object ID');
+            }});
+        };
+
+    socket.on('getStory', function(data) {
+        MongoClient.connect(url, function(err, db) {
+            assert.equal(null, err);
+            getStory(db, data, function() {
+                db.close();
+            });
+        });
     });
 });
 

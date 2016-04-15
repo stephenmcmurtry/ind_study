@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+.wrapper {
+    width: 100%;
+    /* whatever width you want */
+    display: inline-block;
+    position: relative;
+}
+.wrapper:after {
+    padding-top: 60%;
+    /* 16:9 ratio */
+    display: block;
+    content: '';
+}
