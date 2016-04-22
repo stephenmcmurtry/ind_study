@@ -10,7 +10,10 @@
 <div class="container" style="padding-top: 70px">
 
     <div class="ui raised very padded text container segment">
-        <div id="storyBox" class="wrapper"><br></div>
+        <div id="audioBox"></div>
+        <div id="storyBox" class="wrapper">
+            <br>
+        </div>
     </div>
 
 </div>
@@ -21,6 +24,7 @@
         var storySlides = story.slides;
 
         var $storyDiv = $("#storyBox");
+        var $audioBox = $("#audioBox");
         var x = 0;
 
         var counter = 0;
@@ -32,7 +36,7 @@
             // Out with the old
             $storyDiv.empty();
 
-            $("#slideVideo").first().attr('src','');
+            // $("#slideVideo").first().attr('src','');
 
             // Text and Background formatting
             $storyDiv.css({'background-color': currentSlide.bg_color,
@@ -43,17 +47,21 @@
             $storyDiv.html(currentSlide.slide_text);
 
             // Audio calling
-            $storyDiv.append("<audio id='slideAudio' src='" + currentSlide.audio_file + "' autoplay></audio>");
+            if(currentSlide.audio_file != "") {
+                $audioBox.append("<audio id='slideAudio' src='" + currentSlide.audio_file + "' autoplay></audio>");
+            }
 
             // Image calling
             $storyDiv.css({'background-image': currentSlide.bg_image,
                 'background-size': '100%'});
 
             // Video calling
-            //$storyDiv.append("<video id='slideVideo' src='" + currentSlide.video_file + "' autoplay> style='display: block'</video>");
+            if(currentSlide.video_file != "") {
+                $storyDiv.append("<video id='slideVideo' src='" + currentSlide.video_file + "' autoplay> style='display: none'</video>");
+            }
 
-
-            counter = storySlides[x].slide_length * 100;
+            // Set slide length
+            counter = storySlides[x].slide_length * 1000;
 
             x++;
             interval = setInterval(myFunction, counter);
