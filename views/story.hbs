@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.js"> </script>
 <script>
     // Turn on socket.io
-    var socket = io.connect();
+    var socket = io.connect('http://localhost');
 
     socket.emit('getStory', "{{id}}");
     //ui raised very padded text container segment
