@@ -14,10 +14,15 @@
     <script>
         socket.on('story', function(data) {
             var story = JSON.parse(data);
-            $("#storyList").append("<h2><a href='/stories/" + story._id + "'>" + story.title + "</a></h2><br>By " + story.author + "<br><p>" + story.description + "</p><br>");
+            $("#storyList").append("<div class='ui grid'><div class='twelve wide column'>" +
+                    "<h2><a style='color:#666666' href='/stories/" + story._id + "'>" + story.title +
+                    "</a></h2><br>By " + story.author +
+                    "<br><p>" + story.description + "</p><br>" + "</div><div class='four wide column'>" +
+                    "<img class='ui small circular image' src='https://www.game-debate.com/images/members/594119/avatar/original/danswor.jpg'</img></div>");
             $.each(story.tags, function(index, value) {
                 $("#storyList").append('<a class="ui tag label">' + value + '</a>');
             });
+            $("#storyList").append("</div><br><br>");
         });
     </script>
 </div>
