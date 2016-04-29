@@ -36,7 +36,7 @@
             // Out with the old
             $storyDiv.empty();
 
-            // $("#slideVideo").first().attr('src','');
+            $("#slideVideo").remove();
 
             // Text and Background formatting
             $storyDiv.css({'background-color': currentSlide.bg_color,
@@ -57,7 +57,7 @@
 
             // Video calling
             if(currentSlide.video_file != "") {
-                $storyDiv.append("<video id='slideVideo' src='" + currentSlide.video_file + "' autoplay> style='display: none'</video>");
+                $storyDiv.append("<video class='videoInsert' id='slideVideo' src='" + currentSlide.video_file + "' autoplay> style='display: none'</video>");
             }
 
             // Set slide length
