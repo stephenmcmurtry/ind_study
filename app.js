@@ -14,7 +14,7 @@ var app = express();
 
 // Socket.io stuff
 
-var server = app.listen();
+var server = app.listen(3001);
 var io = require('socket.io').listen(server);
 
 // view engine setup
