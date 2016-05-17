@@ -1,4 +1,3 @@
-var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,12 +9,16 @@ var users = require('./routes/users');
 var feed = require('./routes/feed');
 var story = require('./routes/story');
 
+var express = require('express');
+/*var app = express();
+var server = app.listen();
+var io = require('socket.io').listen(server);*/
+
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-// Socket.io stuff
-
-var server = app.listen(5000);
-var io = require('socket.io').listen(server);
+server.listen(3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
