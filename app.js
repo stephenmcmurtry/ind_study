@@ -10,15 +10,18 @@ var feed = require('./routes/feed');
 var story = require('./routes/story');
 
 var express = require('express');
+var socketio = require('socket.io');
 /*var app = express();
 var server = app.listen();
 var io = require('socket.io').listen(server);*/
 
 var app = express();
+var io = socketio();
+app.io = io;
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
 
-server.listen(3000);
+server.listen();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
