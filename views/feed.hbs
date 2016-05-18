@@ -1,9 +1,7 @@
 <script src="/javascripts/socket.io.js"></script>
 <script>
+    // Connect to socket.io and request story list
     var socket = io.connect('/');
-
- //   var socket = io.connect('http://localhost:5000');
-
     socket.emit('getStories');
 </script>
 
@@ -13,15 +11,22 @@
 
     <script>
         socket.on('story', function(data) {
+            // Parse the story
             var story = JSON.parse(data);
+
+            // Prepare formatted story feed item with CSS
             $("#storyList").append("<div class='ui grid'><div class='twelve wide column'>" +
                     "<h2><a style='color:#666666' href='/stories/" + story._id + "'>" + story.title +
                     "</a></h2><br>By " + story.author +
                     "<br><p>" + story.description + "</p><br>" + "</div><div class='four wide column'>" +
-                    "<img class='ui small circular image' src='https://www.game-debate.com/images/members/594119/avatar/original/danswor.jpg'</img></div>");
+                    "<img class='ui small circular image' src='" + story.image + "'</img></div>");
+
+            // Add labels to stories
             $.each(story.tags, function(index, value) {
                 $("#storyList").append('<a class="ui tag label">' + value + '</a>');
             });
+
+            // Put stories one after another
             $("#storyList").append("</div><br><br>");
         });
     </script>

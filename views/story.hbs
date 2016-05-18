@@ -1,11 +1,9 @@
-<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/socket.io.js"></script>
+<script src="/javascripts/typed.js"></script>
 <script>
-    var socket = io();
-    // Turn on socket.io
-    //var socket = io.connect('http://localhost:5000');
-
+    // Connect to socket.io and request story
+    var socket = io.connect('/');
     socket.emit('getStory', "{{id}}");
-    //ui raised very padded text container segment
 </script>
 
 <div class="container" style="padding-top: 70px">
@@ -21,31 +19,55 @@
 
 <script>
     socket.on('story', function(data) {
+        // Parse and store story
         var story = JSON.parse(data);
         var storySlides = story.slides;
 
+        // Prepare presentation boxes and counter
         var $storyDiv = $("#storyBox");
         var $audioBox = $("#audioBox");
         var x = 0;
-
         var counter = 0;
 
-        var myFunction = function(){
+        var displayStory = function(){
+            // Delete last interval
             clearInterval(interval);
+
+            // Pull in information from storySlides array
             var currentSlide = storySlides[x];
 
-            // Out with the old
+            // Empty div and remove video box
             $storyDiv.empty();
-
             $("#slideVideo").remove();
 
-            // Text and Background formatting
+            // Background formatting
             $storyDiv.css({'background-color': currentSlide.bg_color,
                 'font-size': currentSlide.text_size,
                 'font-family': currentSlide.text_font,
                 'color': currentSlide.text_color,
                 'text-align': currentSlide.text_align});
-            $storyDiv.html(currentSlide.slide_text);
+
+            if(currentSlide.textTyped) {
+                var text = currentSlide.slide_text;
+
+                //text is split up to letters
+                $.each(text.split(''), function(i, letter){
+
+                    //we add 100*i ms delay to each letter
+                    setTimeout(function(){
+
+                        if(letter == '\n') {
+                            $('#storyBox').html($('#storyBox').html() + '<br><br>');
+                        } else {
+                            //we add the letter to the container
+                            $('#storyBox').html($('#storyBox').html() + letter);
+                        }
+
+                    }, 50*i);
+                });
+            } else {
+                $storyDiv.html(currentSlide.slide_text);
+            }
 
             // Audio calling
             if(currentSlide.audio_file != "") {
@@ -64,11 +86,12 @@
             // Set slide length
             counter = storySlides[x].slide_length * 1000;
 
+            // Prepare next interval and iterate through story
             x++;
-            interval = setInterval(myFunction, counter);
+            interval = setInterval(displayStory, counter);
         };
 
-        var interval = setInterval(myFunction, counter);
+        var interval = setInterval(displayStory, counter);
 
     });
 </script>

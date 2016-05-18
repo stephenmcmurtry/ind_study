@@ -1,3 +1,5 @@
+var express = require('express');
+var socketio = require('socket.io');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -9,17 +11,11 @@ var users = require('./routes/users');
 var feed = require('./routes/feed');
 var story = require('./routes/story');
 
-var express = require('express');
-var socketio = require('socket.io');
-/*var app = express();
-var server = app.listen();
-var io = require('socket.io').listen(server);*/
-
+// Start web server and socket.io server
 var app = express();
 var io = socketio();
 app.io = io;
 var server = require('http').Server(app);
-//var io = require('socket.io')(server);
 
 server.listen();
 
@@ -35,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Prepare the router to send us to web pages
 app.use('/', routes);
 app.use('/users', users);
 app.use('/feed', feed);
@@ -47,11 +44,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// mongodb functions
-
+// Connect to MongoDB
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-
 var url = 'mongodb://stephenmcmurtry:smudge1@ds023448.mlab.com:23448/micro_stories';
 
 MongoClient.connect(url, function(err, db) {
@@ -62,7 +57,7 @@ MongoClient.connect(url, function(err, db) {
 
 io.on('connection', function (socket) {
 
-    // Story Feed methods
+    // Story Feed methods - Get list of all stories from DB and send to front with socket.io
 
     var getStories = function(db, data, callback) {
         var cursor =db.collection('stories').find( );
@@ -85,6 +80,8 @@ io.on('connection', function (socket) {
             });
         });
     });
+
+    // Story Page methods - get specified story from Mongo and send to front with socket.io
 
     var getStory = function(db, data, callback) {
         var obj_id = require('mongodb').ObjectID(data);
