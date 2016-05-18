@@ -10,6 +10,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var feed = require('./routes/feed');
 var story = require('./routes/story');
+var about = require('./routes/about');
 
 // Start web server and socket.io server
 var app = express();
@@ -36,6 +37,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/feed', feed);
 app.use('/stories', story);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
